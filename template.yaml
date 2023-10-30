@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Test
+
+Resources:
+  #Lambda Functions
+  BackendAssignemnt1Function1:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: BackendAssignment1Function1
+      CodeUri: BackendAssignemnt1Function1/
+      Description: Lambda for Backend Assignemnt1
+      Handler: app.lambdaHandler
+      Runtime: nodejs14.x
+      Environment:
+        Variables:
+          UrlTable: !Ref BackendAssignemnt1Table
+      Policies:
+        - AWSLambdaDynamoDBExecutionRole
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BackendAssignemnt1Table
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /getShortUrl
+            Method: post
+            RestApiId: !Ref BackendAssignment1API

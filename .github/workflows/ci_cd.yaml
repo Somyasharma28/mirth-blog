@@ -20,3 +20,13 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::${{ secrets.ACCOUNT_ID }}:role/${{ secrets.ROLE_NAME }}
           aws-region: ap-south-1
+
+      - name: Build resources
+        run: sam build --use-container
+
+      - name: Deploy to st account
+        run: |
+          sam deploy --stack-name somya-test-pipeline \
+            --capabilities CAPABILITY_IAM \
+            --resolve-s3 \
+            --region ap-south-1
