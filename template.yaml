@@ -12,17 +12,9 @@ Resources:
       Description: Lambda for Backend Assignemnt1
       Handler: app.lambdaHandler
       Runtime: nodejs14.x
-      Environment:
-        Variables:
-          UrlTable: !Ref BackendAssignemnt1Table
-      Policies:
-        - AWSLambdaDynamoDBExecutionRole
-        - DynamoDBCrudPolicy:
-            TableName: !Ref BackendAssignemnt1Table
       Events:
         ApiEvent:
           Type: Api
           Properties:
             Path: /getShortUrl
             Method: post
-            RestApiId: !Ref BackendAssignment1API
