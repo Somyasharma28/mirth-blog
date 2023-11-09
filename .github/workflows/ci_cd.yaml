@@ -10,23 +10,23 @@ jobs:
     permissions:
       contents: read
       packages: write
-      id-token: write
+    environment: dev 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::${{ secrets.ACCOUNT_ID }}:role/${{ secrets.ROLE_NAME }}
-          aws-region: ap-south-1
+      - name: Echo Somya
+        run: echo "Hello Somya"
+        
+  dev-two:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    environment: dev 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Build resources
-        run: sam build --use-container
-
-      - name: Deploy to st account
-        run: |
-          sam deploy --stack-name somya-test-pipeline \
-            --capabilities CAPABILITY_IAM \
-            --resolve-s3 \
-            --region ap-south-1
+      - name: Echo Dheeraj
+        run: echo "Hello Dheeraj"
